@@ -35,20 +35,20 @@ Stocks.append(GOOG)
 GOOGL = Stock('GOOGL')
 Stocks.append(GOOGL)
 
-FB = Stock('FB')
-Stocks.append(FB)
+# FB = Stock('FB')
+# Stocks.append(FB)
 
-TSLA = Stock('TSLA')
-Stocks.append(TSLA)
+# TSLA = Stock('TSLA')
+# Stocks.append(TSLA)
 
-NVDA = Stock('NVDA')
-Stocks.append(NVDA)
+# NVDA = Stock('NVDA')
+# Stocks.append(NVDA)
 
-JPM = Stock('JPM')
-Stocks.append(JPM)
+# JPM = Stock('JPM')
+# Stocks.append(JPM)
 
-JNJ = Stock('JNJ')
-Stocks.append(JNJ)
+# JNJ = Stock('JNJ')
+# Stocks.append(JNJ)
 
 # V = Stock('V')
 # Stocks.append(V)
@@ -212,11 +212,11 @@ def checkStocks():
     for a in Stocks:
         stock_curr_price = a.stock_current_price()
         if a.stock_old_price != None:
-            if stock_curr_price - a.stock_old_price >= a.stock_old_price * 0.0003:
+            if stock_curr_price - a.stock_old_price >= a.stock_old_price * 0.00013:
                 if money >= stock_curr_price:
                     if a.stock_owned == False:
                         buy(a)
-            elif stock_curr_price - a.stock_old_price <= a.stock_old_price * -0.0003:
+            elif stock_curr_price - a.stock_old_price <= a.stock_old_price * -0.00013:
                 if a.stock_owned:
                     sell(a)
         a.stock_old_price = stock_curr_price
@@ -224,9 +224,9 @@ def checkStocks():
 wait_message = "Waiting For Next Price Check"
 
 for a in range(1, 11):
-    for b in range(12):
-        print(wait_message)
-        time.sleep(5)
+    for b in range(10):
+        print(wait_message, b)
+        time.sleep(1)
     if money <= 0:
         print("Simulation Ended")
         print(money)
