@@ -173,19 +173,21 @@ Stocks.append(GOOGL)
 money = 100000
 
 # Function to Buy A Stock
-def buy(stock):
+def buy(stock, curr_price):
     # Calling All Global Variables
     global money
 
-    money = money - stock.stock_current_price()
+    money = money - curr_price
+    print("Buying", stock.symbol)
     stock.stock_owned = True
 
 # Function to Sell A Stock
-def sell(stock):
+def sell(stock, curr_price):
     # Calling All Global Variables
     global money
 
-    money = money + stock.stock_current_price()
+    money = money + curr_price
+    print("Selling", stock.symbol)
     stock.stock_owned = False
 
 # Function to Format Into A String What Stocks are Owned
@@ -212,19 +214,19 @@ def checkStocks():
     for a in Stocks:
         stock_curr_price = a.stock_current_price()
         if a.stock_old_price != None:
-            if stock_curr_price - a.stock_old_price >= a.stock_old_price * 0.00013:
+            if stock_curr_price - a.stock_old_price >= a.stock_old_price * 0.000065:
                 if money >= stock_curr_price:
                     if a.stock_owned == False:
-                        buy(a)
-            elif stock_curr_price - a.stock_old_price <= a.stock_old_price * -0.00013:
+                        buy(a, stock_curr_price)
+            elif stock_curr_price - a.stock_old_price <= a.stock_old_price * -0.000065:
                 if a.stock_owned:
-                    sell(a)
+                    sell(a, stock_curr_price)
         a.stock_old_price = stock_curr_price
 
 wait_message = "Waiting For Next Price Check"
 
 for a in range(1, 11):
-    for b in range(10):
+    for b in range(3):
         print(wait_message, b)
         time.sleep(1)
     if money <= 0:
@@ -238,6 +240,6 @@ for a in range(1, 11):
 
 for z in Stocks:
     if z.stock_owned:
-        sell(z)
+        sell(z, z.stock_current_price())
 
 print("Final Total:", money)
